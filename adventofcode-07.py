@@ -8,7 +8,7 @@ def substitute(shinygoldrules, rules):
         shinygoldrules.append(temp)
   return shinygoldrules
 
-def finduniqe(rules):
+def findunique(rules):
   leftside = []
   leftside = [e[0] for e in rules]
   ret = []
