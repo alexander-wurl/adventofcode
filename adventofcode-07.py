@@ -7,7 +7,7 @@ def substitute(shinygoldrules, rules):
         shinygoldrules.append([str(r[0]), str(r[1].replace(g[0][:-1], g[1]))])
   return shinygoldrules
 
-def findunique(rules):
+def makeunique(rules):
   leftside = [e[0] for e in rules]
   ret = []
   for e in leftside:
@@ -32,7 +32,7 @@ solution = 0
 
 while True:
   shinygoldrules = substitute(shinygoldrules, splittedrules)
-  l = len(findunique(shinygoldrules))
+  l = len(makeunique(shinygoldrules))
   if ( l > solution):
       solution = l
   else:
