@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-from aoc import read_input
-
 def substitute(shinygoldrules, rules):
   for r in rules:  
     for g in shinygoldrules:  
@@ -20,7 +18,8 @@ def finduniqe(rules):
   return ret
 
 # main
-data = read_input(2020, 7)
+fileid = open("input-07.txt")
+data = fileid.read()
 
 rules = []
 rules = data.split("\n")[:-1] 
@@ -43,4 +42,4 @@ while True:
   else:
       break
 
-print( solution )
+print("final solution: " + str(solution) )
