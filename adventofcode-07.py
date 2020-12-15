@@ -38,4 +38,4 @@ while True:
   else:
       break
 
-print("solution: " + str(solution) )
+print( "solution: " + str(solution) )
