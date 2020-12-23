@@ -1,14 +1,10 @@
 
-import os
-
-def getData(nummer):
-    fileId = open(os.path.dirname(__file__) + "/input-" + str(nummer) + ".txt")
-    return fileId.read()
+import helper
 
 # main
 
 # make list of strings
-instructions = getData("08").split("\n")[:-1] 
+instructions = helper.getData("08")
 
 # initial values
 accumulator = 0
