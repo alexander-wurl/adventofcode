@@ -1,7 +1,0 @@
-{
-    "python.pythonPath": "/usr/bin/python3",
-    "terminal.integrated.shell.windows": "/bin/bash",
-    "terminal.integrated.automationShell.linux": "/usr/bash",
-    "terminal.integrated.automationShell.osx": "/usr/bash",
-    "terminal.integrated.automationShell.windows": "/usr/bash"
-}
