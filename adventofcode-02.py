@@ -1,4 +1,6 @@
-f = open("input-02.txt")
+import os
+
+f = open(os.path.dirname(__file__) + "/input-02.txt")
 solution = 0
 for line in f:
 	w = line.split(" ")

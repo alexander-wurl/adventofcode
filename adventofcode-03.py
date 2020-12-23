@@ -1,4 +1,6 @@
-file = open("input-03.txt")
+import os
+
+file = open(os.path.dirname(__file__) + "/input-03.txt")
 
 start = 0
 trees = 0
