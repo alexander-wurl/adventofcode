@@ -1,7 +1,9 @@
+import os
+
 questions = ""
 solution = 0
 
-file = open("input-06.txt")
+file = open(os.path.dirname(__file__) + "/input-06.txt")
 
 for line in file:
 

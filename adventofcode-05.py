@@ -1,4 +1,6 @@
-file = open("input-05.txt")
+import os
+
+file = open(os.path.dirname(__file__) + "/input-05.txt")
 
 highestSeatId = 0
 

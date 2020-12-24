@@ -1,4 +1,6 @@
-file = open("input-04.txt")
+import os
+
+file = open(os.path.dirname(__file__) + "/input-04.txt")
 validIds = 0
 
 refList = ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid']
