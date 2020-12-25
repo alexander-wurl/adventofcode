@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import os
+import helper
 
 def substitute(shinygoldrules, rules):
   for r in rules:  
@@ -9,7 +9,7 @@ def substitute(shinygoldrules, rules):
         shinygoldrules.append([str(r[0]), str(r[1].replace(g[0][:-1], g[1]))])
   return shinygoldrules
 
-def findunique(rules):
+def makeunique(rules):
   leftside = [e[0] for e in rules]
   ret = []
   for e in leftside:
@@ -18,10 +18,7 @@ def findunique(rules):
   return ret
 
 # main
-fileid = open(os.path.dirname(__file__) + "/input-07.txt")
-data = fileid.read()
-
-rules = data.split("\n")[:-1] 
+rules = helper.getData("07")
 
 splittedrules = [x.split(" contain ") for x in rules] 
 
@@ -34,10 +31,10 @@ solution = 0
 
 while True:
   shinygoldrules = substitute(shinygoldrules, splittedrules)
-  l = len(findunique(shinygoldrules))
+  l = len(makeunique(shinygoldrules))
   if ( l > solution):
       solution = l
   else:
       break
 
-print("solution: " + str(solution) )
+print( "solution: " + str(solution) )

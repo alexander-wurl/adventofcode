@@ -43,4 +43,4 @@ for line in file:
 
             if (seatId >= highestSeatId):
                 highestSeatId = seatId
-                print("new hight seat ID: " + str(highestSeatId))
+                print("new highest seat ID: " + str(highestSeatId))
