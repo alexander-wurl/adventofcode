@@ -1,6 +1,6 @@
-import os
+import helper
 
-file = open(os.path.dirname(__file__) + "/input-03.txt")
+file = helper.getData("03")
 
 start = 0
 trees = 0

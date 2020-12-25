@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import os
+import helper
 
 def substitute(shinygoldrules, rules):
   for r in rules:  
@@ -18,10 +18,7 @@ def makeunique(rules):
   return ret
 
 # main
-fileid = open(os.path.dirname(__file__) + "/input-07.txt")
-data = fileid.read()
-
-rules = data.split("\n")[:-1] 
+rules = helper.getData("07")
 
 splittedrules = [x.split(" contain ") for x in rules] 
 

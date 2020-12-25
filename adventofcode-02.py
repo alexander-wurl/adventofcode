@@ -1,7 +1,9 @@
-import os
+import helper
 
-f = open(os.path.dirname(__file__) + "/input-02.txt")
+f = helper.getData("02")
+
 solution = 0
+
 for line in f:
 	w = line.split(" ")
 	mm = w[0].split("-")
