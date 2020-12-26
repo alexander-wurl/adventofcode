@@ -29,7 +29,7 @@ def recursion(voltage, d1, d2, d3):
     else:
         pass
 
-temp = helper.getData("00")
+temp = helper.getData("10")
 
 # to int
 data = [int(e) for e in temp]
