@@ -1,23 +1,25 @@
+#!/usr/bin/env python3
+
 import helper
 
 def moveNorth(position, value, direction):
     position["north"] += int(value)
-    print( "moving {} north ... new position now is ({}, {}, {}, {})".format(value, position["east"], position["west"], position["north"], position["south"]) )
+    print( "moving {} north ... new position now is ({}, {})".format(value, position["east"], position["north"]) )
     return (position, direction)
 
 def moveSouth(position, value, direction):
     position["north"] -= int(value)
-    print( "moving {} south ... new position now is ({}, {}, {}, {})".format(value, position["east"], position["west"], position["north"], position["south"]) )
+    print( "moving {} south ... new position now is ({}, {})".format(value, position["east"], position["north"]) )
     return (position, direction)
 
 def moveEast(position, value, direction):
     position["east"] += int(value)
-    print( "moving {} east ... new position now is ({}, {}, {}, {})".format(value, position["east"], position["west"], position["north"], position["south"]) )
+    print( "moving {} east ... new position now is ({}, {})".format(value, position["east"], position["north"]) )
     return (position, direction)
 
 def moveWest(position, value, direction):
     position["east"] -= int(value)
-    print( "moving {} west ... new position now is ({}, {}, {}, {})".format(value, position["east"], position["west"], position["north"], position["south"]) )
+    print( "moving {} west ... new position now is ({}, {})".format(value, position["east"], position["north"]) )
     return (position, direction)
 
 def moveForward(position, value, direction):
@@ -151,7 +153,7 @@ def turnRight(position, degrees, direction):
 
     return (position, newdirection)
 
-
+# possible actions as dictionary
 actions = {
     "N": moveNorth,
     "S": moveSouth,
@@ -162,30 +164,31 @@ actions = {
     "F": moveForward
 }
 
+
+def part1():
+    # current position
+    position = {"east": 0, "west": 0, "north": 0, "south": 0}
+
+    # current direction
+    direction = "east"
+
+    # load data
+    data = helper.getData("12")
+
+    # process action and value line by line
+    for e in data:
+        action = e[0]
+        value = e[1:]
+        (position, direction) = actions[action](position, value, direction)
+
+    # calculate manhatten distance
+    distance = abs(int(position["east"])) + abs(int(position["north"]) )
+
+    # solution
+    print("solution1: {}".format(distance))
+
 # main
+part1()
 
 
-
-
-# current position
-position = {"east": 0, "west": 0, "north": 0, "south": 0}
-
-# current direction
-direction = "east"
-
-# load data
-data = helper.getData("12")
-
-for e in data:
-    action = e[0]
-    value = e[1:]
-
-    (position, direction) = actions[action](position, value, direction)
-
-e = position["east"]
-n = position["north"]
-
-distance = abs(int(position["east"])) + abs(int(position["north"]) )
-
-print("solution: {}".format(distance))
 

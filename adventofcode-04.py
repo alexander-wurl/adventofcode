@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import os
 
 file = open(os.path.dirname(__file__) + "/input-04.txt")

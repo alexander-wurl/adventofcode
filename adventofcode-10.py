@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import helper
 
 def recursion(voltage, d1, d2, d3):

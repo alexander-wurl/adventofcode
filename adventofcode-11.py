@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import helper
 
 def nextOccupiedNeighbours(data, xs, ys):
@@ -221,6 +223,7 @@ def part2():
 
 # main
 
+part1()
 part2()
 
 

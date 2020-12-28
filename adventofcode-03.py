@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import helper
 
 file = helper.getData("03")
