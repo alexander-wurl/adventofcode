@@ -189,6 +189,3 @@ def part1():
 
 # main
 part1()
-
-
-
