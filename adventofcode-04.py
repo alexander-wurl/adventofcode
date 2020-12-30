@@ -2,45 +2,51 @@
 
 import os
 
-file = open(os.path.dirname(__file__) + "/input-04.txt")
-validIds = 0
+def part1():
 
-refList = ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid']
-tarList = []
+    data = open(os.path.dirname(__file__) + "/input-04.txt")
 
-for line in file:
+    validIds = 0
 
-    if (line == "\n"):
+    refList = ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid']
+    tarList = []
 
-        # space found - check tarList's elements in refList
-        valid = 0
-        n = 0
+    for line in data:
 
-        for el in tarList:
-            if el in refList:
-                valid = 1
-                n += 1
+        if (line == "\n"):
 
-        if (valid == 1) and (n >= 7):
-            validIds += 1
+            # space found - check tarList's elements in refList
+            valid = 0
+            n = 0
 
-        tarList = []
+            for el in tarList:
+                if el in refList:
+                    valid = 1
+                    n += 1
 
-    pos1 = 0
-    pos2 = line.find(':')
+            if (valid == 1) and (n >= 7):
+                validIds += 1
 
-    while (pos2 > 0):
-        tarList.append(line[pos1:pos2])
+            tarList = []
 
-        # skip spaces
-        pos1 = pos2+1
+        pos1 = 0
+        pos2 = line.find(':')
 
-        while ((line[pos1:pos1+1] != ' ') and (line[pos1:pos1+1] != '')):
+        while (pos2 > 0):
+            tarList.append(line[pos1:pos2])
+
+            # skip spaces
+            pos1 = pos2+1
+
+            while ((line[pos1:pos1+1] != ' ') and (line[pos1:pos1+1] != '')):
+                pos1 += 1
+
+            # consider space char
             pos1 += 1
 
-        # consider space char
-        pos1 += 1
+            pos2 = line.find(':', pos1)
 
-        pos2 = line.find(':', pos1)
+    print(validIds)
 
-print("validIds: " + str(validIds))
+# main
+part1()
