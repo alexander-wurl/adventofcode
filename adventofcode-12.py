@@ -164,7 +164,6 @@ actions = {
     "F": moveForward
 }
 
-
 def part1():
     # current position
     position = {"east": 0, "west": 0, "north": 0, "south": 0}
