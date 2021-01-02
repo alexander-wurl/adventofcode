@@ -2,155 +2,39 @@
 
 import helper
 
-def moveNorth(position, value, direction):
-    position["north"] += int(value)
-    print( "moving {} north ... new position now is ({}, {})".format(value, position["east"], position["north"]) )
+def moveNorth(position: [int, int], value: int, direction: [int, int]) -> ([int, int], [int, int]):
+    position[1] += int(value)
+    print( "moving {} north ... new position now is ({}, {})".format(value, position[0], position[1]) )
     return (position, direction)
 
-def moveSouth(position, value, direction):
-    position["north"] -= int(value)
-    print( "moving {} south ... new position now is ({}, {})".format(value, position["east"], position["north"]) )
+def moveSouth(position: [int, int], value: int, direction: [int, int]) -> ([int, int], [int, int]):
+    position[1] -= int(value)
+    print( "moving {} south ... new position now is ({}, {})".format(value, position[0], position[1]) )
     return (position, direction)
 
-def moveEast(position, value, direction):
-    position["east"] += int(value)
-    print( "moving {} east ... new position now is ({}, {})".format(value, position["east"], position["north"]) )
+def moveEast(position: [int, int], value: int, direction: [int, int]) -> ([int, int], [int, int]):
+    position[0] += int(value)
+    print( "moving {} east ... new position now is ({}, {})".format(value, position[0], position[1]) )
     return (position, direction)
 
-def moveWest(position, value, direction):
-    position["east"] -= int(value)
-    print( "moving {} west ... new position now is ({}, {})".format(value, position["east"], position["north"]) )
+def moveWest(position: [int, int], value: int, direction: [int, int]) -> ([int, int], [int, int]):
+    position[0] -= int(value)
+    print( "moving {} west ... new position now is ({}, {})".format(value, position[0], position[1]) )
     return (position, direction)
 
-def moveForward(position, value, direction):
+def moveForward(position: [int, int], value: int, direction: [int, int]) -> ([int, int], [int, int]):
+    r = helper.np.dot(value, [direction[0], direction[1]])
+    o = [position[0], position[1]]
+    newposition = helper.np.add(o, r)
+    print( "moving {} forward ... new position now is ({}, {})".format(value, position[0], position[1]) )
+    return (newposition, direction)
 
-    moveToDirection = {
-        "east": moveEast,
-        "west": moveWest,
-        "south": moveSouth,
-        "north": moveNorth
-    }
-    
-    moveToDirection[direction](position, int(value), direction)
-    return (position, direction)
-
-
-def changeEastLeft(degrees):
-
-    newDirection = {
-        0: "east",
-        90: "north",
-        180: "west",
-        270: "south"
-    }
-
-    ret = newDirection[int(degrees)]
-    return ret
-
-def changeWestLeft(degrees):
-
-    newDirection = {
-        0: "west",
-        90: "south",
-        180: "east",
-        270: "north"
-    }
-
-    return newDirection[int(degrees)]
-
-def changeNorthLeft(degrees):
-
-    newDirection = {
-        0: "north",
-        90: "west",
-        180: "south",
-        270: "east"
-    }
-
-    return newDirection[int(degrees)]
-
-def changeSouthLeft(degrees):
-
-    newDirection = {
-        0: "south",
-        90: "east",
-        180: "north",
-        270: "west"
-    }
-
-    return newDirection[int(degrees)]
-
-
-def changeEastRight(degrees):
-
-    newDirection = {
-        0: "east",
-        90: "south",
-        180: "west",
-        270: "north"
-    }
-
-    return newDirection[int(degrees)]
-
-def changeWestRight(degrees):
-
-    newDirection = {
-        0: "west",
-        90: "north",
-        180: "east",
-        270: "south"
-    }
-
-    return newDirection[int(degrees)]
-
-def changeNorthRight(degrees):
-
-    newDirection = {
-        0: "north",
-        90: "east",
-        180: "south",
-        270: "west"
-    }
-
-    return newDirection[int(degrees)]
-
-def changeSouthRight(degrees):
-
-    newDirection = {
-        0: "south",
-        90: "west",
-        180: "north",
-        270: "east"
-    }
-
-    return newDirection[int(degrees)]
-
-def turnLeft(position, degrees, direction):
-
-    changeDirection = {
-        "east": changeEastLeft,
-        "north": changeNorthLeft,
-        "south": changeSouthLeft,
-        "west": changeWestLeft
-    }
-    
-    newdirection = changeDirection[direction](degrees)
-    print("new direction is {}".format(newdirection))
-
+def turnLeft(position: [int, int], degrees: int, direction: [int, int]) -> ([int, int], [int, int]):
+    newdirection = helper.rotate(direction, [0, 0], degrees)
     return (position, newdirection)
 
-def turnRight(position, degrees, direction):
-
-    changeDirection = {
-        "east": changeEastRight,
-        "north": changeNorthRight,
-        "south": changeSouthRight,
-        "west": changeWestRight
-    }
-    
-    newdirection = changeDirection[direction](degrees)
-    print("new direction is {}".format(newdirection))
-
+def turnRight(position: [int, int], degrees: int, direction: [int, int]) -> ([int, int], [int, int]):
+    newdirection = helper.rotate(direction, [0, 0], -degrees)
     return (position, newdirection)
 
 # possible actions as dictionary
@@ -165,11 +49,11 @@ actions = {
 }
 
 def part1():
-    # current position
-    position = {"east": 0, "west": 0, "north": 0, "south": 0}
+    # current position ((x, y) = (east, north))
+    position = [0, 0]
 
-    # current direction
-    direction = "east"
+    # direction vector ((x, y) = (east, north))
+    direction = [1, 0]
 
     # load data
     data = helper.getData("12")
@@ -177,14 +61,17 @@ def part1():
     # process action and value line by line
     for e in data:
         action = e[0]
-        value = e[1:]
+        value = int(e[1:])
+        #print(e, end = "\t")
+        #print(direction, end = "\t")
+        #print(position, end = " ")
         (position, direction) = actions[action](position, value, direction)
 
     # calculate manhatten distance
-    distance = abs(int(position["east"])) + abs(int(position["north"]) )
+    distance = abs(int(position[0])) + abs(int(position[1]) )
 
     # solution
-    print("solution1: {}".format(distance))
+    print("solution for part 1: {}".format(distance))
 
 # main
 part1()
