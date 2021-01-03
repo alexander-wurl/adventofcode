@@ -23,9 +23,9 @@ def rotate(p: [int, int], c: [int, int], degrees: int) -> [int, int]:
     phi = degrees * (math.pi/180)
 
     # rotation matrix
-    m_rot = [[round(math.cos(phi)), round(-(math.sin(phi)))], [round(math.sin(phi)), round(math.cos(phi))]]
+    m_rot = [[math.cos(phi), -(math.sin(phi))], [math.sin(phi), math.cos(phi)]]
 
-    # tranlsation
+    # translation
     m_trans = np.subtract(p, c)
 
     # rotated p
@@ -34,4 +34,4 @@ def rotate(p: [int, int], c: [int, int], degrees: int) -> [int, int]:
     # rotated and translated p
     p_rot_trans = np.add(c, p_rot)
 
-    return [p_rot_trans[0], p_rot_trans[1]]
+    return [round(p_rot_trans[0], 2), round(p_rot_trans[1], 2)]
