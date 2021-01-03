@@ -17,24 +17,31 @@ def makeunique(rules):
       ret.append(e)
   return ret
 
+
+def part1():
+
+  rules = helper.getData("07")
+
+  splittedrules = [x.split(" contain ") for x in rules] 
+
+  shinygoldrules = []
+  for e in splittedrules: 
+    if (e[1].find("shiny gold bag")>-1): 
+      shinygoldrules.append(e)
+
+  solution = 0
+
+  while True:
+    shinygoldrules = substitute(shinygoldrules, splittedrules)
+    l = len(makeunique(shinygoldrules))
+    if ( l > solution):
+        solution = l
+    else:
+        break
+
+  print( "solution: " + str(solution) )
+
 # main
-rules = helper.getData("07")
+part1()
 
-splittedrules = [x.split(" contain ") for x in rules] 
 
-shinygoldrules = []
-for e in splittedrules: 
-  if (e[1].find("shiny gold bag")>-1): 
-    shinygoldrules.append(e)
-
-solution = 0
-
-while True:
-  shinygoldrules = substitute(shinygoldrules, splittedrules)
-  l = len(makeunique(shinygoldrules))
-  if ( l > solution):
-      solution = l
-  else:
-      break
-
-print( "solution: " + str(solution) )

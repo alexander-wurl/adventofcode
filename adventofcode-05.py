@@ -1,46 +1,55 @@
+#!/usr/bin/env python3
+
 import os
 
-file = open(os.path.dirname(__file__) + "/input-05.txt")
+def part1():
 
-highestSeatId = 0
+    file = open(os.path.dirname(__file__) + "/input-05.txt")
 
-for line in file:
+    highestSeatId = 0
 
-    min = 0
-    max = 128
+    for line in file:
 
-    lowerId = 'F'
-    upperId = 'B'
+        min = 0
+        max = 128
 
-    step = 0
+        lowerId = 'F'
+        upperId = 'B'
 
-    l = []
-    l[:] = line
-    l.pop()
+        step = 0
 
-    for e in l:
+        l = []
+        l[:] = line
+        l.pop()
 
-        h = (max - min) / 2 
+        for e in l:
 
-        if (e == lowerId):
-            # lower half
-            max = max - h
-        elif (e == upperId):
-            # upper half
-            min = min + h
+            h = (max - min) / 2 
 
-        step += 1
+            if (e == lowerId):
+                # lower half
+                max = max - h
+            elif (e == upperId):
+                # upper half
+                min = min + h
 
-        if (step == 7):
-            row = min
-            min = 0
-            max = 8
-            lowerId = 'L'
-            upperId = 'R'
-        if (step == 10):
-            column = min
-            seatId = (row * 8) + column
+            step += 1
 
-            if (seatId >= highestSeatId):
-                highestSeatId = seatId
-                print("new highest seat ID: " + str(highestSeatId))
+            if (step == 7):
+                row = min
+                min = 0
+                max = 8
+                lowerId = 'L'
+                upperId = 'R'
+            if (step == 10):
+                column = min
+                seatId = (row * 8) + column
+
+                if (seatId >= highestSeatId):
+                    highestSeatId = seatId
+                    #print("new highest seat ID: " + str(highestSeatId))
+    print(highestSeatId)
+
+# main
+
+part1()

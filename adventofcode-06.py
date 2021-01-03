@@ -1,24 +1,32 @@
+#!/usr/bin/env python3
+
 import os
 
-questions = ""
-solution = 0
+def part1():
 
-file = open(os.path.dirname(__file__) + "/input-06.txt")
+    questions = ""
+    solution = 0
 
-for line in file:
+    file = open(os.path.dirname(__file__) + "/input-06.txt")
 
-    if (line != '\n'):
-        questions = questions + line
-    else:
-        tlist = list("abcdefghijklmnopqrstuvwxyz")
-        
-        for e in questions:
-            if (e in tlist):
-                tlist.remove(e)
-        
-        questions = ""
+    for line in file:
 
-        v = 26 - len(tlist)
-        solution += v
+        if (line != '\n'):
+            questions = questions + line
+        else:
+            tlist = list("abcdefghijklmnopqrstuvwxyz")
+            
+            for e in questions:
+                if (e in tlist):
+                    tlist.remove(e)
+            
+            questions = ""
 
-        print("final solution: " + str(solution))
+            v = 26 - len(tlist)
+            solution += v
+
+    print(solution)
+
+# main
+
+part1()
