@@ -1,8 +1,21 @@
 import os
 import numpy as np
 import math
+import requests
+import yaml
 
-# read data by number
+# get config data 
+def getConfigData(configFile = 'adventofcode-2020.yaml'):
+
+    # load yaml file
+    with open(configFile) as f:
+        data = yaml.load(f)
+        print(data)
+
+    # return data (as dictionay)
+    return data
+
+# get input data by number
 def getData(number):
 
     # define filename
@@ -10,11 +23,31 @@ def getData(number):
     fileName = "input-{}.txt".format(number)
     filePath = os.path.join(workingDir, fileName)
 
-    # read and split data
-    fileId = open(filePath)
-    data = fileId.read().split("\n")[:-1]
+    data = ""
+    fileId = ""
 
-    return data
+    # load file from disc if exists otherwise get it from adventofcode.com
+    if (os.path.exists(filePath)):
+        fileId = open(filePath, "r")
+        data = fileId.read()
+    else:
+        data = downloadData(number)
+        fileId = open(filePath.format(number), "w")
+        fileId.write(data)
+
+    fileId.close()
+
+    # format data and return
+    return data.split("\n")[:-1]
+
+# download input data by number
+def downloadData(number):
+
+    # get data using requests library and session id stored in config file
+    session = getConfigData().get("session")
+    uri = "https://adventofcode.com/2020/day/{}/input".format(number)
+    response = requests.get(uri, cookies={'session': session})
+    return response.text
 
 # rotation of p around c by degrees
 def rotate(p: [int, int], c: [int, int], degrees: int) -> [int, int]:
