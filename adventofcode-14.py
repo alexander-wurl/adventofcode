@@ -23,7 +23,7 @@ def part1():
         else:
             # ... or adress and value
             pos = e.find("] = ")
-            adress = e[4:pos]
+            address = e[4:pos]
             value = e[pos+4:]
 
             # convert value to binary, remove prefix
@@ -45,10 +45,7 @@ def part1():
             value = int(bvalue, 2)
 
             # update value if already exists otherwise add
-            if (adress in memory):
-                memory[adress] = value
-            else:
-                memory.update({adress:value})
+            memory[address] = value
 
     print("solution for part 1: {}".format(getSumOfValuesInDictionary(memory)))
 
@@ -65,13 +62,13 @@ def part2():
         if (e[0:7] == "mask = "):
             mask = e[7:]
         else:
-            # ... or adress and value
+            # ... or address and value
             pos = e.find("] = ")
-            adress = e[4:pos]
+            address = e[4:pos]
             value = int(e[pos+4:])
 
-            # convert adress to binary, remove prefix
-            baddress = str(bin(int(adress)))[2:]
+            # convert address to binary, remove prefix
+            baddress = str(bin(int(address)))[2:]
 
             # fill leading gap with zeros
             while (len(baddress) < 36):
@@ -106,11 +103,8 @@ def part2():
                 newaddress = int(newbaddress, 2)
 
                 # update value if already exists otherwise add
-                if (newaddress in memory):
-                    memory[newaddress] = value
-                else:
-                    memory.update({newaddress:value})
-
+                memory[newaddress] = value
+                
     print("solution for part 2: {}".format(getSumOfValuesInDictionary(memory)))
 
 # main

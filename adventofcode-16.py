@@ -49,7 +49,7 @@ def part1():
 
             # all notes
             for note in notes:
-                validity.update({str(note): checkValidity(value, note)})
+                validity[str(note)] = checkValidity(value, note)
 
             # check validity
             if not True in validity.values():
