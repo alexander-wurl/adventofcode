@@ -31,9 +31,10 @@ def startGame(n: int):
         else:
             numberSpoken = 0
     
-        memory.update({currentTurn:numberSpoken})
-
+        memory[currentTurn] = numberSpoken
+        
         currentTurn += 1
+        print(currentTurn)
 
     print("number spoken: {}".format(numberSpoken))
 
@@ -41,7 +42,7 @@ def startGame(n: int):
 # main
 
 # part 1
-startGame(2020)
+#startGame(2020)
 
 # part 2
 startGame(30000000)
