@@ -76,7 +76,7 @@ def part1():
     # read tickets
     for e in data[26:]:
         temp = e.split(",")
-        tickets.append(list([int(value) for value in temp]))
+        tickets.append([int(value) for value in temp])
 
 
     validity = {}
@@ -100,7 +100,33 @@ def part1():
      
             validity.clear
 
-    print("Solution for part 1 is: {}.".format(ser))
+    print("Solution for part 1 is: {}".format(ser))
+
+def get_matching_note_with_value_1(matchingNotes, notes):
+
+    for note in matchingNotes:
+
+        ret = matchingNotes[note]
+        if (len(ret) == 1):
+            return note
+        
+def delete_matching_note_in_matching_notes(matchingNote, matchingNotes, notes):
+
+    ret = matchingNotes[matchingNote]
+    del matchingNotes[matchingNote]
+    return (matchingNotes, ret)
+
+def remove_column_value_in_matching_notes(columnValue, matchingNotes, notes):
+
+    s = int(columnValue[0])
+
+    for note in matchingNotes:
+
+        if (s in matchingNotes[note]):
+
+            matchingNotes[note].remove(s)
+
+    return matchingNotes
 
 def part2():
 
@@ -108,46 +134,116 @@ def part2():
 
     notes = []
     tickets = []
-
-    # notes = [
-    #     [0, 1, 4, 19],
-    #     [0, 5, 8, 19],
-    #     [0, 13, 16, 19]
-    # ]
-
-    # tickets = [
-    #     [3, 9, 18],
-    #     [15, 1, 5],
-    #     [5, 14, 9]
-    # ]
-
-    #read notes
+    myticket = []
+    
+    # read notes
     for e in data[0:20]:
        temp = e.split(":")[1].replace("or", "-").replace(" ", "").split("-")
        notes.append(list([int(value) for value in temp]))
 
-    #read tickets
+    # read tickets
     for e in data[25:]:
        temp = e.split(",")
        tickets.append(list([int(value) for value in temp]))
 
+    # read my ticket
+    for e in data[22:23]:
+       temp = e.split(",")
+       myticket.append(list([int(value) for value in temp]))
+
     validTickets = getValidTickets(tickets, notes)
     
-    # now process valid tickets
+
+    matchingNotes = {}
+
+    # process valid tickets
     for note in notes:
+
+        matchingNotes[str(note)] = []
 
         for columnIndex in range(0, len(validTickets[0])):
 
             column = [t[columnIndex] for t in validTickets]
 
             if (checkValidities(column, note)):
-                print("Note {}: matches with column {}".format(note, columnIndex))
+                #print("Note {}: matches with column {}".format(note, columnIndex))
+                matchingNotes[str(note)].append(columnIndex) 
+
+    # process matching notes
+    
+    finalNotes = {}
+    tempColumn = 0
+
+    while ( not(len(finalNotes) == 6) ):
+
+        # get matchingNote with value 1
+        matchingNote = get_matching_note_with_value_1(matchingNotes, notes)
+
+        if (matchingNote):
+           # remove that note and return it's column value
+            (matchingNotes, columnValue) = delete_matching_note_in_matching_notes(matchingNote, matchingNotes, notes)
+            
+            # remove all 'columnValue' from matchingNotes
+            matchingNotes = remove_column_value_in_matching_notes(columnValue, matchingNotes, notes)
+        else:
+            columnValue = tempColumn
+            matchingNotes = remove_column_value_in_matching_notes(columnValue, matchingNotes, notes)
+
+        try:
+            if ( (len(matchingNotes[str(notes[0])]) == 1) ):
+                finalNotes[str(notes[0])] = matchingNotes[str(notes[0])]
+                tempColumn = matchingNotes[str(notes[0])]
+                del matchingNotes[str(notes[0])]
+        except:
+            pass
+        try:
+            if ( (len(matchingNotes[str(notes[1])]) == 1) ):
+                finalNotes[str(notes[1])] = matchingNotes[str(notes[1])]
+                tempColumn = matchingNotes[str(notes[1])]
+                del matchingNotes[str(notes[1])]
+        except:
+            pass
+        try:
+            if ( (len(matchingNotes[str(notes[2])]) == 1) ):
+                finalNotes[str(notes[2])] = matchingNotes[str(notes[2])]
+                tempColumn = matchingNotes[str(notes[2])]
+                del matchingNotes[str(notes[2])]
+        except:
+            pass
+        try:
+            if ( (len(matchingNotes[str(notes[3])]) == 1) ):
+                finalNotes[str(notes[3])] = matchingNotes[str(notes[3])]
+                tempColumn = matchingNotes[str(notes[3])]
+                del matchingNotes[str(notes[3])]
+        except:
+            pass
+        try:
+            if ( (len(matchingNotes[str(notes[4])]) == 1) ):
+                finalNotes[str(notes[4])] = matchingNotes[str(notes[4])]
+                tempColumn = matchingNotes[str(notes[4])]
+                del matchingNotes[str(notes[4])]
+        except:
+            pass
+        try:
+            if ( (len(matchingNotes[str(notes[5])]) == 1) ):
+                finalNotes[str(notes[5])] = matchingNotes[str(notes[5])]
+                tempColumn = matchingNotes[str(notes[5])]
+                del matchingNotes[str(notes[5])]
+        except:
+            pass
+
+    # process final notes
+
+    solution2 = 1
+
+    for fn in finalNotes:
+        x = int(finalNotes[fn][0])
+        solution2 *= myticket[0][x]
+
+    print("Solution for part 2 is: {}".format(solution2))
+
 
 # main
 
 part1()
-
-part2() # solution found by manual elimination, algorithm still to do
-
-solution = 157*113*53*101*167*191
-print("solution for part 2 is: {}".format(solution))
+part2()
