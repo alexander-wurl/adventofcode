@@ -2,15 +2,13 @@
 
 import helper
 
-def getValidTickets(tickets: list, notes: list):
+def get_valid_tickets(tickets: list, notes: list):
 
     validTickets = []
-    invalidvalue = -1
 
     for ticket in tickets:
 
         valid = True
-        invalidvalue = -1
 
         for value in ticket:
             
@@ -21,29 +19,22 @@ def getValidTickets(tickets: list, notes: list):
 
             for note in notes:
 
-                check = checkValidity(value, note)
-
+                check = check_validity(value, note)
                 val[str(note)] = check
 
-            #print(val)
-            
             if (True in val.values()):
                 valid = True
             else:
                 valid = False
-                invalidvalue = value
-                #print("Mismatch")
                 break
 
         if (valid):
             validTickets.append(ticket)
-        #else:
-        #    print("Value {} in ticket {} not valid!".format(invalidvalue, ticket))
 
     return validTickets
 
 # check single value (for one note)
-def checkValidity(value: int, note: list) -> bool:
+def check_validity(value: int, note: list) -> bool:
     valid = False
 
     if (((value >= note[0]) and (value <= note[1])) or ((value >= note[2]) and (value <= note[3]))):
@@ -52,7 +43,7 @@ def checkValidity(value: int, note: list) -> bool:
     return valid
 
 # check multiple values (for one note), one mismatch means column is not valid for given note
-def checkValidities(values: list, note: list) -> bool:
+def check_validities(values: list, note: list) -> bool:
     valid = True
 
     for i in values:
@@ -92,7 +83,7 @@ def part1():
 
             # all notes
             for note in notes:
-                validity[str(note)] = checkValidity(value, note)
+                validity[str(note)] = check_validity(value, note)
 
             # check validity
             if not True in validity.values():
@@ -151,7 +142,7 @@ def part2():
        temp = e.split(",")
        myticket.append(list([int(value) for value in temp]))
 
-    validTickets = getValidTickets(tickets, notes)
+    validTickets = get_valid_tickets(tickets, notes)
     
 
     matchingNotes = {}
@@ -165,7 +156,7 @@ def part2():
 
             column = [t[columnIndex] for t in validTickets]
 
-            if (checkValidities(column, note)):
+            if (check_validities(column, note)):
                 #print("Note {}: matches with column {}".format(note, columnIndex))
                 matchingNotes[str(note)].append(columnIndex) 
 
