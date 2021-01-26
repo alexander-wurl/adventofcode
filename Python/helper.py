@@ -5,7 +5,7 @@ import requests
 import yaml
 
 # get config data 
-def getConfigData(configFile = 'adventofcode-2020.yaml'):
+def getConfigData(configFile = 'adventofcode.yaml'):
 
     # load yaml file
     with open(configFile) as f:
