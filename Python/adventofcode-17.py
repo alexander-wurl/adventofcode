@@ -1,22 +1,19 @@
 #!/usr/bin/env python
-
-import random
-
 import helper
 
-# print cubes, visible view can be expanded given margin parameter greater 0
-def PrintCubes(cubes, margin = 0) -> int:
+# print cubes, calculate and return number of active cubes 
+def PrintCubes(cubes) -> int:
 
     # sort for x, y and z
     cubes.sort(key = lambda x: (x[0], x[1], x[2]))
 
     # set min and max +- tolerance
-    max_x = max(cubes)[0] + margin
-    min_x = min(cubes)[0] - margin
-    max_y = max(cubes)[1] + margin
-    min_y = min(cubes)[1] - margin
-    max_z = max(cubes)[2] + margin
-    min_z = min(cubes)[2] - margin
+    max_x = max(cubes)[0]
+    min_x = min(cubes)[0]
+    max_y = max(cubes)[1]
+    min_y = min(cubes)[1]
+    max_z = max(cubes)[2]
+    min_z = min(cubes)[2]
 
     count = 0
 
@@ -33,7 +30,7 @@ def PrintCubes(cubes, margin = 0) -> int:
 
             print("")
 
-    print("Number of active cubes is {}".count)
+    print("Number of active cubes is {}".format(count))
     return count
 
 
@@ -66,8 +63,6 @@ def SetActivity(data, x, y, z) -> (int, int, int, str):
     else:
         return (x, y, z, ".")
 
-# main
-
 def part1() -> int:
     ret = 0
     data = helper.getData("17")
@@ -77,10 +72,10 @@ def part1() -> int:
     l = len(data[0])
     start = -int((l - 1) / 2)
     end = -start
-
     margin = 6
 
-    # init coordinates with '.' (extend du to lookup in neighbourhood)
+    # init coordinates with '.'
+    # area of interest extended (by margin) due to lookup within neighbourhood
     for z in range(start - margin, end + margin + 1):
         [cubes.append((x, y, z, ".")) for x in range(start - margin, end + margin + 1) for y in range(start - margin, end + margin + 1)]
 
@@ -113,7 +108,7 @@ def part1() -> int:
 
         cubes = cubes_new.copy()
 
-        ret = PrintCubes(cubes_new, 1)
+        ret = PrintCubes(cubes_new)
     
     return ret
 
