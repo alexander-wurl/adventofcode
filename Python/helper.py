@@ -43,8 +43,12 @@ def getData(number):
 # download input data by number
 def downloadData(number):
 
+    # define filename
+    workingDir = os.path.dirname(__file__)
+    filePath = os.path.join(workingDir, "adventofcode.yaml")
+
     # get data using requests library and session id stored in config file
-    session = getConfigData().get("session")
+    session = getConfigData(filePath).get("session")
     uri = "https://adventofcode.com/2020/day/{}/input".format(number)
     response = requests.get(uri, cookies={'session': session})
     return response.text
