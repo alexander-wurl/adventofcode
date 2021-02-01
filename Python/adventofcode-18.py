@@ -55,7 +55,7 @@ def part1() -> int:
 
     for d in data:
         value = EvalExpressionWithPrecedences(d)
-        print(d + " = {}".format(value))
+        #print(d + " = {}".format(value))
         ret += value
 
     return ret
