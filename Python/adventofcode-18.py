@@ -13,41 +13,32 @@ def EvalExpressionWithoutPrecedences(s) -> int:
     for _ in range(0, number_brackets):
         expression += "("
 
-    # surround each value with brackets
+    # surround each value with brackets for left to right precedence
     ss = s.split(" ")
     for e in ss:
         expression += str(e + ")") if (bool(re.match("\(*\d+\)*", e))) else str(e)
-   
-    return eval(expression)    
+
+    return eval(expression)
 
 def EvalExpressionWithPrecedences(s) -> int:
 
-    # consider + and * expressions with 2 terms
-    expressions = re.findall("\(\d* [+*] \d*\)", s)
+    # find inner term surrounded with brackets
+    inner_terms = re.findall("\(([^()]*)\)", s)
 
-    while ( len(expressions) > 0 ):
+    for term in inner_terms:
+        # evaluate and replace value with former term
+        value = EvalExpressionWithPrecedences( term )
+        s = s.replace("(" + term + ")", str(value))
 
-        for pe in expressions:
-            s = s.replace(pe, str(eval(pe)))
-        
-        expressions = re.findall("\(\d* \+ \d*\)", s)
+    # find outer term surrounded with brackets
+    outer_terms = re.findall("\(([^()]*)\)", s)
 
-    # if brackets still exist
-    if (re.findall("\(", s)):
-        
-        # find inner term surrounded with brackets
-        inner_terms = re.findall("\(([^())]+)\)", s)
+    for term in outer_terms:
+        # evaluate and replace value with former term
+        value = EvalExpressionWithPrecedences( term )
+        s = s.replace("(" + term + ")", str(value))
 
-        # may be to do with more than one inner term ...
-        for term in inner_terms:
-            # evaluate and replace value with former term
-            s = s.replace(term, str(EvalExpressionWithPrecedences( term )))
-
-        # return recombined string
-        return EvalExpressionWithoutPrecedences(s)
-
-    else:
-        return EvalExpressionWithoutPrecedences(s)
+    return EvalExpressionWithoutPrecedences(s)
 
 def part1() -> int:
     data = helper.getData("18")
@@ -55,35 +46,37 @@ def part1() -> int:
 
     for d in data:
         value = EvalExpressionWithPrecedences(d)
-        #print(d + " = {}".format(value))
         ret += value
 
     return ret
 
 # main
 
-#a = "1 + 2 * 3 + 4 * 5 + 6" # 71 OK
-#print( EvalExpressionWithoutPrecedences(a) )
+#t1 = "1 + 2 * 3 + 4 * 5 + 6" # 71 OK
+#print( EvalExpressionWithPrecedences(t1) )
 
-#b = "1 + (2 * 3) + (4 * (5 + 6))" # 51 OK
-#print( EvalExpressionWithPrecedences(b) )
+#t2 = "1 + (2 * 3) + (4 * (5 + 6))" # 51 OK
+#print( EvalExpressionWithPrecedences(t2) )
 
-#b2 = "(2 * 3) + (4 * (5 + 6))" # 50 OK
-#print( EvalExpressionWithPrecedences(b2) )
+#t3 = "(2 * 3) + (4 * (5 + 6))" # 50 OK
+#print( EvalExpressionWithPrecedences(t3) )
 
-#b3 = "(2 * 3)" # 6 OK
-#print( EvalExpressionWithPrecedences(b3) )
+#t4 = "(2 * 3)" # 6 OK
+#print( EvalExpressionWithPrecedences(t4) )
 
-#c = "2 * 3 + (4 * 5)" #26 OK
-#print( EvalExpressionWithPrecedences(c) )
+#t5 = "2 * 3 + (4 * 5)" #26 OK
+#print( EvalExpressionWithPrecedences(t5) )
 
-#d = "5 + (8 * 3 + 9 + 3 * 4 * 3)" #437
-#print( EvalExpressionWithPrecedences(d) )
+#t6 = "5 + (8 * 3 + 9 + 3 * 4 * 3)" #437 OK
+#print( EvalExpressionWithPrecedences(t6) )
 
-#e = "5 * 9 * (7 * 3 * 3 + 9 * 3 + (8 + 6 * 4))" # 12240 OK
-#print( EvalExpressionWithPrecedences(e) )
+#t7 = "5 * 9 * (7 * 3 * 3 + 9 * 3 + (8 + 6 * 4))" # 12240 OK
+#print( EvalExpressionWithPrecedences(t7) )
 
-#f = "((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2" # 13632 OK
-#print( EvalExpressionWithPrecedences(f) )
+#t8 = "((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2" # 13632 OK
+#print( EvalExpressionWithPrecedences(t8) )
+
+#t9 = "8 * (9 * 7 * 5 + (9 + 8 * 4)) * 9 + (9 * 9 * (3 * 8 + 4) * 9)" #  47988 FALSCH
+#print( EvalExpressionWithPrecedences(t9) )
 
 print("solution for part 1: {}".format(part1()))
