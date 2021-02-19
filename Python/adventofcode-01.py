@@ -3,7 +3,7 @@
 import helper
 
 def part1():
-    data = helper.getData("01")
+    data = helper.getData("1")
 
     solution = 0
 
@@ -11,11 +11,9 @@ def part1():
         for j in data:
             value = int(e) + int(j)
             if (value == 2020):
-                #print(str(e) + " + " + str(j) + " = 2020!")
                 solution = int(e) * int(j)
-                #print(str(e) + " * " + str(j) + " = " + str(value) + "!")
 
-    print(solution)
+    return solution
 
 # main
-part1()
+print("solution for part 1: {}".format(part1()))
