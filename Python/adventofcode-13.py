@@ -13,7 +13,17 @@ def printTimeTable(time, info):
         print(e + "\t", end = "")
     print("")
 
-def part1(eta, ids):
+def part1():
+    
+    # data
+    data = helper.getData("13")
+
+    # estimated time of (my) arrival at bus stop
+    eta = int(data[0])
+
+    # relevant bus ids
+    ids = getBusIds(data[1])
+
     # set index and maximal waiting time using highest bus id
     i = eta
     max_waiting_time = i + max(ids)
@@ -35,26 +45,10 @@ def part1(eta, ids):
                     bus_id = e
             else:
                 bus_stops.append("-")
-    
-        # optional: print time table body
-        #printTimeTable(str(i), bus_stops)
 
         i += 1
 
-    print("solution for part 1: {}".format(bus_id * waiting_time))
+    return bus_id * waiting_time
 
 # main
-
-# data
-data = helper.getData("13")
-
-# estimated time of (my) arrival at bus stop
-eta = int(data[0])
-
-# relevant bus ids
-ids = getBusIds(data[1])
-
-# optional: print time table header
-#printTimeTable("time", ids)
-
-part1(eta, ids)
+print("solution for part 1: {}".format(part1()))
