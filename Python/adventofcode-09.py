@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from itertools import combinations
+
 import helper
 
 def isValidNumber(preamble, number):
@@ -13,24 +14,34 @@ def isValidNumber(preamble, number):
     return False
     
 
-data = helper.getData("09")
+def part1():
+    data = helper.getData("9")
 
-# preamble length
-f = 25
+    # preamble length
+    f = 25
 
-# current index
-i = f
+    # current index
+    i = f
 
-# e is current element
-for e in data[f:]:
+    # solution
+    ret = ""
 
-    # build preamble from previous numbers
-    start = i-f
-    stop = i
-    preamble = data[start:stop]
+    # e is current element
+    for e in data[f:]:
 
-    # check for valid numbers in preamble 
-    if (isValidNumber(preamble, e) == False):
-        print(e + " is  not valid!")
+        # build preamble from previous numbers
+        start = i-f
+        stop = i
+        preamble = data[start:stop]
 
-    i += 1
+        # check for valid numbers in preamble 
+        if (isValidNumber(preamble, e) == False):
+            ret = "{} + is not valid!".format(e)
+
+        i += 1
+
+    return ret
+
+# main
+print("solution for part 1: {}".format(part1()))
+
