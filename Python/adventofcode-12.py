@@ -4,29 +4,24 @@ import helper
 
 def moveNorth(position: [int, int], value: int, direction: [int, int]) -> ([int, int], [int, int]):
     position[1] += int(value)
-    print( "moving {} north ... new position now is ({}, {})".format(value, position[0], position[1]) )
     return (position, direction)
 
 def moveSouth(position: [int, int], value: int, direction: [int, int]) -> ([int, int], [int, int]):
     position[1] -= int(value)
-    print( "moving {} south ... new position now is ({}, {})".format(value, position[0], position[1]) )
     return (position, direction)
 
 def moveEast(position: [int, int], value: int, direction: [int, int]) -> ([int, int], [int, int]):
     position[0] += int(value)
-    print( "moving {} east ... new position now is ({}, {})".format(value, position[0], position[1]) )
     return (position, direction)
 
 def moveWest(position: [int, int], value: int, direction: [int, int]) -> ([int, int], [int, int]):
     position[0] -= int(value)
-    print( "moving {} west ... new position now is ({}, {})".format(value, position[0], position[1]) )
     return (position, direction)
 
 def moveForward(position: [int, int], value: int, direction: [int, int]) -> ([int, int], [int, int]):
     r = helper.np.dot(value, [direction[0], direction[1]])
     o = [position[0], position[1]]
     newposition = helper.np.add(o, r)
-    print( "moving {} forward ... new position now is ({}, {})".format(value, position[0], position[1]) )
     return (newposition, direction)
 
 def turnLeft(position: [int, int], degrees: int, direction: [int, int]) -> ([int, int], [int, int]):
@@ -62,16 +57,13 @@ def part1():
     for e in data:
         action = e[0]
         value = int(e[1:])
-        #print(e, end = "\t")
-        #print(direction, end = "\t")
-        #print(position, end = " ")
         (position, direction) = actions[action](position, value, direction)
 
     # calculate manhatten distance
     distance = abs(int(position[0])) + abs(int(position[1]) )
 
     # solution
-    print("solution for part 1: {}".format(distance))
+    return distance
 
 # main
-part1()
+print("solution for part 1: {}".format(part1()))
