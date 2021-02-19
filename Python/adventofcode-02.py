@@ -3,7 +3,7 @@
 import helper
 
 def part1():
-	f = helper.getData("02")
+	f = helper.getData("2")
 
 	solution = 0
 
@@ -17,9 +17,8 @@ def part1():
 
 		if (count >= int(min)) and (count <= int(max)):
 			solution += 1
-			#print("OK " + str(solution))
 
-	print(solution)
+	return solution
 
 # main
-part1()
+print("solution for part 1: {}".format(part1()))
