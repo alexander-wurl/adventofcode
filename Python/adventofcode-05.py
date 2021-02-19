@@ -2,25 +2,23 @@
 
 import os
 
+import helper
+
 def part1():
 
-    file = open(os.path.dirname(__file__) + "/input-05.txt")
+    data = helper.getData("5")
 
     highestSeatId = 0
 
-    for line in file:
+    for line in data:
 
         min = 0
         max = 128
-
         lowerId = 'F'
         upperId = 'B'
-
         step = 0
-
         l = []
         l[:] = line
-        l.pop()
 
         for e in l:
 
@@ -41,15 +39,15 @@ def part1():
                 max = 8
                 lowerId = 'L'
                 upperId = 'R'
+
             if (step == 10):
                 column = min
                 seatId = (row * 8) + column
 
                 if (seatId >= highestSeatId):
                     highestSeatId = seatId
-                    #print("new highest seat ID: " + str(highestSeatId))
-    print(highestSeatId)
+
+    return highestSeatId
 
 # main
-
-part1()
+print("solution for part 1: {}".format(part1()))
