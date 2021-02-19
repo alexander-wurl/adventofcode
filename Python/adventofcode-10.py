@@ -49,6 +49,5 @@ diff3 = []
 # start recursion
 recursion(0, 0, 0, 0)
 
-print("diff1: " + str(len(diff1)))
-print("diff3: " + str(len(diff3)))
-print("solution: " + str(len(diff1) * len(diff3)))
+
+print("solution for part 1: {}".format(str(len(diff1) * len(diff3))))
