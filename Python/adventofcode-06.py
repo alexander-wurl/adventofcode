@@ -2,18 +2,18 @@
 
 import os
 
+import helper
+
 def part1():
 
     questions = ""
     solution = 0
 
-    file = open(os.path.dirname(__file__) + "/input-06.txt")
+    data = helper.getData("6")
 
-    for line in file:
+    for line in data:
 
-        if (line != '\n'):
-            questions = questions + line
-        else:
+        if (line == ''):
             tlist = list("abcdefghijklmnopqrstuvwxyz")
             
             for e in questions:
@@ -24,9 +24,11 @@ def part1():
 
             v = 26 - len(tlist)
             solution += v
-
-    print(solution)
+        else:
+            questions = questions + line
+        
+    return solution
 
 # main
 
-part1()
+print("solution for part 1: {}".format(part1()))
