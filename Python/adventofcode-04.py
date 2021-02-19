@@ -2,9 +2,11 @@
 
 import os
 
+import helper
+
 def part1():
 
-    data = open(os.path.dirname(__file__) + "/input-04.txt")
+    data = helper.getData("4")
 
     validIds = 0
 
@@ -13,7 +15,7 @@ def part1():
 
     for line in data:
 
-        if (line == "\n"):
+        if (line == ""):
 
             # space found - check tarList's elements in refList
             valid = 0
@@ -43,10 +45,10 @@ def part1():
 
             # consider space char
             pos1 += 1
-
             pos2 = line.find(':', pos1)
 
-    print(validIds)
+    return validIds
 
 # main
-part1()
+print("solution for part 1: {}".format(part1()))
+
