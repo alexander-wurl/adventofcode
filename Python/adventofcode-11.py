@@ -171,9 +171,6 @@ def changeSeats(data, param1, part1):
         y = 0
         x += 1
 
-    for e in newdata:
-        print(e)
-
     return change, newdata
 
 def part1():
@@ -190,12 +187,13 @@ def part1():
             data = newdata
  
     c = 0
+    
     for e in finaldata:
         for j in e:
             if (j == '#'):
                 c += 1
 
-    print(c)
+    return c
 
 def part2():
     data = helper.getData("11")
@@ -210,8 +208,6 @@ def part2():
         else:
             data = newdata
 
-        print("")
-
     c = 0
 
     for e in finaldata:
@@ -219,12 +215,9 @@ def part2():
             if (j == '#'):
                 c += 1
 
-    print(c)
+    return c
 
 # main
 
-part1()
-part2()
-
-
-
+print("solution for part 1: {}".format(part1()))
+print("solution for part 2: {}".format(part2()))
